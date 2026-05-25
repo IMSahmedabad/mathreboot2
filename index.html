@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA – Math Reboot 2026 | Practice Test</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f2556;--navy2:#1a3a7c;--navy3:#2851a3;
+  --gold:#e8a020;--green:#1a7a3c;--red:#b91c1c;
+  --purple:#7c3aed;--pink:#b91c6a;--teal:#0d7a6e;
+  --gray:#9ca3af;--lightbg:#f3f4f8;--border:#d1d5db;
+  --text:#1e293b;--subtext:#64748b
+}
+html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;background:var(--lightbg);color:var(--text);font-size:14px}
+
+/* ── HEADER ── */
+.header{background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:3px solid var(--gold)}
+.logo{font-size:16px;font-weight:700;color:white}.logo span{color:var(--gold)}
+.hc{display:flex;align-items:center;gap:10px}
+.sec-badge{background:var(--navy3);padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.h-info{font-size:11px;color:#aac}
+.timer-wrap{display:flex;align-items:center;gap:8px}
+.timer-label{font-size:10px;color:#99b;letter-spacing:1px;text-transform:uppercase}
+.timer{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;color:#fff;background:var(--navy2);border:1.5px solid #4466aa;padding:3px 14px;border-radius:6px;min-width:90px;text-align:center;letter-spacing:2px}
+.timer.warn{color:var(--gold);border-color:var(--gold);animation:pulse 1s ease-in-out infinite}
+.timer.danger{color:#ff6b6b;border-color:#ff6b6b;animation:pulse 0.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.h-student{font-size:11px;color:#ccddff;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── TABS ── */
+.section-tabs{position:fixed;top:52px;left:0;right:0;z-index:190;background:var(--navy2);display:flex;align-items:center;padding:5px 16px;gap:3px;border-bottom:1px solid #2a4a9a;overflow-x:auto}
+.tab{padding:6px 14px;border-radius:4px 4px 0 0;font-size:11.5px;font-weight:600;cursor:pointer;color:#99b;background:transparent;border:none;white-space:nowrap;transition:all .15s}
+.tab.active{background:white;color:var(--navy)}
+.q-ctr{margin-left:auto;font-size:12px;color:#aac;white-space:nowrap;padding-left:10px;font-weight:600}
+
+/* ── MAIN LAYOUT ── */
+.main{display:flex;height:100vh;padding-top:90px;padding-bottom:56px}
+.q-panel{flex:1;overflow-y:auto;background:white;border-right:1px solid var(--border)}
+.q-inner{padding:22px 28px;max-width:800px}
+
+/* ── QUESTION COMPONENTS ── */
+.given-box{border-radius:6px;padding:12px 16px;margin-bottom:14px;border-left:4px solid}
+.given-box.s1{background:#f0f4ff;border-color:var(--navy3)}.given-box.s2{background:#f0f4ff;border-color:var(--navy3)}.given-box.s3{background:#fdf4ff;border-color:var(--purple)}
+.box-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.s1 .box-label{color:var(--navy3)}.s2 .box-label{color:var(--navy3)}.s3 .box-label{color:var(--purple)}
+.box-content{font-size:13px;line-height:1.8;color:var(--text)}
+
+.q-meta{display:flex;align-items:center;gap:7px;margin-bottom:10px;flex-wrap:wrap}
+.q-num{font-size:15px;font-weight:700;color:var(--navy)}
+.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:600}
+.b-s1{background:#e0eaff;color:var(--navy3)}.b-s2{background:#e8f5ee;color:var(--green)}.b-s3{background:#f3e8ff;color:var(--purple)}
+.b-tita{background:#fff3e0;color:#c45000}
+
+.q-text{font-size:14px;line-height:1.8;margin-bottom:10px;font-weight:500;color:var(--text)}
+.instr{background:#fffbe6;border:1px solid #f0d060;border-radius:5px;padding:7px 12px;font-size:11.5px;color:#7a5c00;margin-bottom:12px;line-height:1.5}
+
+.tita-wrap{margin-top:8px}
+.tita-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--subtext);margin-bottom:8px}
+.tita-input{font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:700;letter-spacing:4px;text-align:center;border:2.5px solid var(--navy3);border-radius:8px;padding:12px 20px;width:240px;color:var(--navy);background:#f8f9ff;display:block;transition:border-color .15s,box-shadow .15s}
+.tita-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,160,32,.2)}
+.tita-hint{font-size:11px;color:var(--subtext);margin-top:6px}
+
+/* ── RIGHT PANEL ── */
+.r-panel{width:220px;background:#f8f9fc;border-left:1px solid var(--border);overflow-y:auto;padding:12px;flex-shrink:0}
+.r-title{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--subtext);margin-bottom:8px}
+.score-info{background:white;border:1px solid var(--border);border-radius:6px;padding:10px 12px;margin-bottom:12px}
+.si-row{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}
+.si-row .v{font-weight:700}.si-row.g .v{color:var(--green)}.si-row.r .v{color:var(--red)}
+.tita-note{font-size:10.5px;color:#aab;margin-top:6px;line-height:1.4}
+
+.legend{margin-bottom:12px}
+.leg-item{display:flex;align-items:center;gap:6px;margin:3px 0;font-size:10.5px;color:var(--subtext)}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+.sj-wrap{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.sj-btn{padding:4px 10px;border:1.5px solid var(--border);border-radius:14px;font-size:11px;font-weight:600;cursor:pointer;color:var(--subtext);background:white;transition:all .15s}
+.sj-btn:hover,.sj-btn.active{background:var(--navy3);color:white;border-color:var(--navy3)}
+
+.pal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:6px}
+.pb{width:26px;height:26px;border:none;border-radius:3px;font-size:9px;font-weight:700;cursor:pointer;color:white;transition:transform .1s}
+.pb:hover{transform:scale(1.15)}.pb.cur{box-shadow:0 0 0 2px var(--gold)}
+.pb.p-nv{background:#9ca3af}.pb.p-na{background:#ef4444}.pb.p-ans{background:#16a34a}.pb.p-mrv{background:var(--purple)}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:#eef0f5;border-top:1px solid var(--border);padding:9px 16px;display:flex;justify-content:space-between;align-items:center}
+.nav-left,.nav-right{display:flex;gap:8px}
+.btn{padding:7px 15px;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:opacity .15s,transform .1s}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+.btn-prev{background:#64748b;color:white}.btn-mark{background:var(--purple);color:white}
+.btn-clear{background:#f97316;color:white}.btn-save{background:var(--green);color:white}
+.btn-submit{background:var(--navy);color:white;border:2px solid var(--gold)}
+
+/* ── OVERLAYS & MODALS ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;justify-content:center;align-items:center}
+.overlay.show{display:flex}
+.modal{background:white;border-radius:12px;padding:28px 32px;max-width:700px;width:94%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal::-webkit-scrollbar{width:6px}.modal::-webkit-scrollbar-thumb{background:#c0c8d8;border-radius:3px}
+.modal-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px;text-align:center}
+.modal-sub{font-size:12.5px;color:var(--subtext);text-align:center;margin-bottom:18px}
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.sc{background:var(--lightbg);border-radius:8px;padding:14px 10px;text-align:center;border:1px solid var(--border)}
+.sc-label{font-size:10px;color:var(--subtext);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.sc-val{font-size:26px;font-weight:700;line-height:1}
+.sc-val.blue{color:var(--navy3)}.sc-val.grn{color:var(--green)}.sc-val.gld{color:var(--gold)}
+.sep{height:1px;background:var(--border);margin:14px 0}
+.a-title{font-size:14px;font-weight:700;color:var(--navy);margin:14px 0 8px}
+table.atbl{width:100%;border-collapse:collapse;font-size:12.5px}
+table.atbl th{background:var(--navy);color:white;padding:8px 10px;text-align:center;font-weight:600;font-size:11px}
+table.atbl td{padding:7px 10px;text-align:center;border-bottom:1px solid #f0f0f0}
+table.atbl tr:nth-child(even) td{background:#f8f9fc}
+.rtabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.rtab{padding:5px 12px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:white;color:var(--subtext)}
+.rtab.active{background:var(--navy);color:white;border-color:var(--navy)}
+.rq{padding:9px 0;border-bottom:1px solid #f0f0f0}
+.rq-hdr{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.rq-num{font-weight:700;font-size:12px;color:var(--navy3)}
+.rq-st{font-size:11px;margin-left:auto;font-weight:600}
+.rq-st.ok{color:var(--green)}.rq-st.no{color:var(--red)}.rq-st.sk{color:var(--gray)}
+.rq-ans{font-size:12px;margin-top:2px}.rq-your{color:#555}.rq-correct{color:var(--green);font-weight:600}
+.s-strip{background:var(--lightbg);border:1px solid var(--border);border-radius:6px;padding:8px 14px;margin-bottom:14px;font-size:12px;color:var(--subtext);display:flex;flex-wrap:wrap;gap:6px 18px}
+.s-strip strong{color:var(--navy);font-weight:700}
+
+/* ── CONFIRM ── */
+.confirm-box{background:white;border-radius:12px;padding:28px;max-width:380px;text-align:center}
+.confirm-box h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.confirm-box p{font-size:13px;color:var(--subtext);margin-bottom:8px;line-height:1.6}
+.c-stats{background:var(--lightbg);border-radius:6px;padding:12px;margin:12px 0;font-size:13px;display:flex;flex-direction:column;gap:4px}
+.cs-row{display:flex;justify-content:space-between}
+.c-btns{display:flex;gap:10px;margin-top:16px;justify-content:center}
+.btn-cancel{background:#e5e7eb;color:var(--text)}
+
+/* ── ENTRY SCREEN ── */
+.entry-ov{position:fixed;inset:0;background:linear-gradient(145deg,#070f24 0%,#0f2556 55%,#1a3a7c 100%);z-index:1000;display:flex;align-items:center;justify-content:center}
+.entry-card{background:white;border-radius:16px;padding:36px 40px;width:440px;max-width:93vw;box-shadow:0 28px 80px rgba(0,0,0,.5)}
+.entry-logo{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px}.entry-logo span{color:var(--gold)}
+.entry-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.entry-sub{font-size:12px;color:var(--subtext);margin-bottom:18px;line-height:1.5}
+.entry-divider{height:1px;background:var(--border);margin-bottom:18px}
+.entry-field{margin-bottom:12px}
+.entry-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--subtext);margin-bottom:5px}
+.entry-input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13.5px;font-family:'IBM Plex Sans',sans-serif;color:var(--text);transition:border-color .15s}
+.entry-input:focus{outline:none;border-color:var(--navy3);box-shadow:0 0 0 3px rgba(40,81,163,.15)}
+.entry-input::placeholder{color:#b0b8c8}
+select.entry-input{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.entry-err{color:#b91c1c;font-size:12px;font-weight:600;margin-bottom:10px;min-height:18px}
+.entry-btn{width:100%;padding:11px;background:var(--navy);color:white;border:2px solid var(--gold);border-radius:7px;font-size:14px;font-weight:700;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:background .15s}
+.entry-btn:hover{background:var(--navy2)}
+.entry-note{font-size:11px;color:var(--subtext);text-align:center;margin-top:10px;line-height:1.5}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#1a7a3c;color:white;padding:8px 22px;border-radius:20px;font-size:12px;font-weight:600;opacity:0;transition:opacity .4s;z-index:800;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}.toast.err{background:#b91c1c}
+
+/* ── PROGRESS BAR ── */
+@keyframes progbar{from{width:0%}to{width:100%}}
+.prog-bar{height:100%;background:var(--green);border-radius:2px;animation:progbar 2.8s linear forwards}
+
+/* ── TIMEUP/SUBMIT MSG ── */
+.center-card{background:white;border-radius:16px;padding:40px 48px;text-align:center;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.center-card h2{font-size:22px;font-weight:700;color:var(--red);margin-bottom:8px}
+.center-card p{color:var(--subtext);font-size:13px;margin-bottom:20px}
+</style>
+</head>
+<body>
+
+<!-- ENTRY -->
+<div class="entry-ov" id="entry-ov">
+  <div class="entry-card">
+    <div class="entry-logo">QA <span>Math Reboot 2026</span></div>
+    <div class="entry-title">Sections 1–3 · Practice Test</div>
+    <div class="entry-sub">Percentage Word Problems · SP/CP/MP/Profit/Loss · Special Concepts<br>Fill in your details. The 90-minute timer starts after you click <strong>Begin Test</strong>.</div>
+    <div class="entry-divider"></div>
+    <div class="entry-field"><label class="entry-label">Student Name *</label><input class="entry-input" id="inp-name" type="text" placeholder="Your full name" autocomplete="off"/></div>
+    <div class="entry-field">
+      <label class="entry-label">Center *</label>
+      <select class="entry-input" id="inp-center">
+        <option value="">— Select your center —</option>
+        <option>Ahmedabad</option><option>Gandhinagar</option><option>Vadodara</option><option>Surat</option><option>Gujarat Online</option>
+      </select>
+    </div>
+    <div class="entry-field"><label class="entry-label">Batch *</label><input class="entry-input" id="inp-batch" type="text" placeholder="e.g. CAT 26 · 2701" autocomplete="off"/></div>
+    <div class="entry-err" id="entry-err"></div>
+    <button class="entry-btn" onclick="startTest()">Begin Test ▶</button>
+    <div class="entry-note">49 Questions · 90 Minutes · 3 Sections · No Negative Marking</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">QA <span>Math Reboot</span> <span style="font-size:11px;font-weight:400;color:#aac">2026</span></div>
+  <div class="hc">
+    <div class="sec-badge">Practice Test</div>
+    <div class="h-info">49 Questions &nbsp;·&nbsp; 90 Minutes &nbsp;·&nbsp; 3 Sections</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="h-student" id="h-student"></div>
+    <div class="timer-wrap"><div class="timer-label">Time Left</div><div class="timer" id="timer">90:00</div></div>
+  </div>
+</div>
+
+<!-- SECTION TABS -->
+<div class="section-tabs">
+  <div class="tab active" id="tab1">§1 · Percentage Word Problems (Q1–7)</div>
+  <div class="tab" id="tab2">§2 · SP · CP · MP · Profit · Loss (Q8–35)</div>
+  <div class="tab" id="tab3">§3 · Special Concepts (Q36–49)</div>
+  <div class="q-ctr">Q&nbsp;<span id="cur-q">1</span>&nbsp;/&nbsp;49</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="q-panel"><div class="q-inner" id="q-inner"></div></div>
+  <div class="r-panel">
+    <div class="score-info">
+      <div class="r-title">Marking Scheme</div>
+      <div class="si-row g"><span>Correct</span><span class="v">+3</span></div>
+      <div class="si-row r"><span>Wrong</span><span class="v">0</span></div>
+      <div class="si-row"><span style="color:#888">Skipped</span><span class="v" style="color:#888">0</span></div>
+      <div class="tita-note">All 49 questions are TITA.<br>No negative marking.</div>
+    </div>
+    <div class="legend">
+      <div class="r-title">Status</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#9ca3af"></div>Not Visited</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#ef4444"></div>Not Answered</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#16a34a"></div>Answered</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--purple)"></div>Marked for Review</div>
+    </div>
+    <div class="r-title">Jump to Section</div>
+    <div class="sj-wrap">
+      <button class="sj-btn" onclick="goToQ(1)">§1</button>
+      <button class="sj-btn" onclick="goToQ(8)">§2</button>
+      <button class="sj-btn" onclick="goToQ(36)">§3</button>
+    </div>
+    <div class="r-title">Question Palette</div>
+    <div class="pal-grid" id="palette"></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-left">
+    <button class="btn btn-prev" onclick="navigate(-1)">◀ Prev</button>
+    <button class="btn btn-mark" onclick="markForReview()">⚑ Mark</button>
+    <button class="btn btn-clear" onclick="clearResp()">✕ Clear</button>
+  </div>
+  <div class="nav-right">
+    <button class="btn btn-save" onclick="saveAndNext()">Save & Next ▶</button>
+    <button class="btn btn-submit" onclick="showConfirm()">Submit Test</button>
+  </div>
+</div>
+
+<!-- CONFIRM SUBMIT -->
+<div class="overlay" id="confirm-ov">
+  <div class="confirm-box">
+    <h3>Submit Test?</h3>
+    <p>You are about to submit the Math Reboot 2026 Practice Test.</p>
+    <div class="c-stats" id="c-stats"></div>
+    <div class="c-btns">
+      <button class="btn btn-cancel" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-submit" onclick="doSubmit()">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- TIME UP -->
+<div class="overlay" id="timeup-ov">
+  <div class="center-card">
+    <h2>⏱ Time's Up!</h2>
+    <p>90 minutes elapsed. Submitting your responses now.</p>
+    <button class="btn btn-submit" style="width:100%" onclick="doSubmit()">View Results</button>
+  </div>
+</div>
+
+<!-- SUBMITTING -->
+<div class="overlay" id="submitting-ov">
+  <div style="background:white;border-radius:16px;padding:40px 48px;text-align:center;max-width:360px">
+    <div style="font-size:48px;margin-bottom:16px">✅</div>
+    <div style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:10px">Responses Submitted!</div>
+    <div style="font-size:13px;color:var(--subtext);line-height:1.6">Calculating your score…</div>
+    <div style="margin-top:20px;height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden"><div class="prog-bar"></div></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="overlay" id="results-ov">
+  <div class="modal">
+    <div class="modal-title">📊 Math Reboot 2026 · Practice Test Results</div>
+    <div class="modal-sub">Sections 1–3 · TITA · No Negative Marking</div>
+    <div class="s-strip" id="s-strip"></div>
+    <div class="score-grid" id="score-cards"></div>
+    <div class="sep"></div>
+    <div class="a-title">Section-wise Analysis</div>
+    <table class="atbl" id="atbl"></table>
+    <div class="sep"></div>
+    <div class="a-title">Question-wise Review</div>
+    <div class="rtabs">
+      <button class="rtab active" onclick="filterReview('all',this)">All (49)</button>
+      <button class="rtab" onclick="filterReview('correct',this)">✓ Correct</button>
+      <button class="rtab" onclick="filterReview('wrong',this)">✗ Wrong</button>
+      <button class="rtab" onclick="filterReview('skip',this)">— Skipped</button>
+    </div>
+    <div id="review-list"></div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button onclick="downloadPDF()" style="flex:1;padding:10px;background:var(--navy);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:'IBM Plex Sans',sans-serif">📄 Download Answer Key</button>
+      <button onclick="closeResults()" style="flex:1;padding:10px;background:#64748b;color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:'IBM Plex Sans',sans-serif">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// GOOGLE FORMS CONFIG
+// ─────────────────────────────────────────────
+const GF={
+  url:'https://docs.google.com/forms/d/e/1FAIpQLSdpEOvBxrXrgM9aUmpTAzPcpCPFY51fkzTJoLn2TLt8xJXMdQ/formResponse',
+  f:{name:'entry.821793197',center:'entry.718554192',batch:'entry.1677067231',
+     total:'entry.394084461',correct:'entry.221833569',wrong:'entry.1128942083',
+     skip:'entry.643971374',time:'entry.1634701790',resp:'entry.2004208374'}
+};
+
+// ─────────────────────────────────────────────
+// QUESTIONS
+// sec 1 = §1 Percentage Word Problems  (Q1–7)
+// sec 2 = §2 SP/CP/MP/P/L/D            (Q8–35)
+// sec 3 = §3 Special Concepts          (Q36–49)
+//
+// word  = context box (blue for s1/s2, purple for s3)
+// text  = the actual question ask
+// answer = correct TITA answer (string)
+// tol   = numeric tolerance (default 0)
+// note  = extra hint shown in yellow box
+// ─────────────────────────────────────────────
+const Q=[
+// ── SECTION 1: Percentage Word Problems ──
+{id:1,sec:1,
+ text:'In a school, 70% of the boys and 80% of the girls passed an exam. If the number of girls who passed is 30 more than the number of boys who failed, and the number of boys is twice the number of girls, find the <strong>total number of students</strong> in the school.',
+ answer:'450',tol:0},
+
+{id:2,sec:1,
+ text:'A businessman spends 20% of his salary on house rent, 25% of the remaining on food, and 10% of the remaining on travel. If he is still left with ₹16200, find his <strong>salary</strong> in ₹.',
+ answer:'30000',tol:0},
+
+{id:3,sec:1,
+ text:'In a company, 40% employees are females and the remaining are males. 75% of the females and 50% of the males are graduates. If the total number of graduates is 330, find the <strong>total number of employees</strong>.',
+ answer:'550',tol:0},
+
+{id:4,sec:1,
+ text:'A person donates 30% of his money to charity. Out of the remaining amount, he spends 25% on shopping and then 20% of the remaining on travelling. If he is left with ₹16800, find his <strong>original amount</strong> in ₹.',
+ answer:'40000',tol:0},
+
+{id:5,sec:1,
+ text:'The population of a town increases by 20% in the first year and decreases by 10% in the second year. If the final population is 64800, find the <strong>original population</strong>.',
+ answer:'60000',tol:0},
+
+{id:6,sec:1,
+ text:'A student scored 80% marks in Mathematics, 70% in Science and 90% in English. If the total maximum marks of the three subjects together is 600 and he obtained 480 marks in total, find the <strong>maximum marks of English</strong>.',
+ answer:'200',tol:0},
+
+{id:7,sec:1,
+ text:'In a hostel, 60% of the students like tea and 45% like coffee. 25% like both tea and coffee. If 105 students like only tea, find the <strong>total number of students</strong> in the hostel.',
+ answer:'300',tol:0},
+
+// ── SECTION 2: SP · CP · MP · Profit · Loss ──
+{id:8,sec:2,
+ word:'The Cost Price is ₹1800, the Selling Price is ₹2400, and the Marked Price is ₹4000.',
+ text:'<strong>(a)</strong> Find the <strong>Profit/Loss percentage</strong>.',
+ answer:'33.33',tol:0.1},
+
+{id:9,sec:2,
+ word:'The Cost Price is ₹1800, the Selling Price is ₹2400, and the Marked Price is ₹4000.',
+ text:'<strong>(b)</strong> Find the <strong>Discount percentage</strong>.',
+ answer:'40',tol:0},
+
+{id:10,sec:2,
+ word:'The Cost Price is ₹2500, there is a Loss of 20%, and a Discount of 50% on the Marked Price.',
+ text:'<strong>(a)</strong> Find the <strong>Selling Price</strong> in ₹.',
+ answer:'2000',tol:0},
+
+{id:11,sec:2,
+ word:'The Cost Price is ₹2500, there is a Loss of 20%, and a Discount of 50% on the Marked Price.',
+ text:'<strong>(b)</strong> Find the <strong>Marked Price</strong> in ₹.',
+ answer:'4000',tol:0},
+
+{id:12,sec:2,
+ word:'The Selling Price is ₹5000 and the Discount percentage is 20%.',
+ text:'<strong>(a)</strong> Find the <strong>Marked Price</strong> in ₹.',
+ answer:'6250',tol:0},
+
+{id:13,sec:2,
+ word:'The Selling Price is ₹5000 and the Discount percentage is 20%.',
+ text:'<strong>(b)</strong> Find the <strong>Discount in Rupees</strong>.',
+ answer:'1250',tol:0},
+
+{id:14,sec:2,
+ text:'A trader earns a Profit of 20% and gives a Discount of 20% on the Marked Price. Find the <strong>Mark-up percentage</strong>.',
+ answer:'50',tol:0},
+
+{id:15,sec:2,
+ word:'There is a Loss of 16.67%, the Selling Price is ₹6250, and the Discount is ₹1250.',
+ text:'<strong>(a)</strong> Find the <strong>Cost Price</strong> in ₹.',
+ answer:'7500',tol:0},
+
+{id:16,sec:2,
+ word:'There is a Loss of 16.67%, the Selling Price is ₹6250, and the Discount is ₹1250.',
+ text:'<strong>(b)</strong> Find the <strong>Loss in Rupees</strong>.',
+ answer:'1250',tol:0},
+
+{id:17,sec:2,
+ word:'There is a Loss of 16.67%, the Selling Price is ₹6250, and the Discount is ₹1250.',
+ text:'<strong>(c)</strong> Find the <strong>Marked Price</strong> in ₹.',
+ answer:'7500',tol:0},
+
+{id:18,sec:2,
+ word:'There is a Loss of 16.67%, the Selling Price is ₹6250, and the Discount is ₹1250.',
+ text:'<strong>(d)</strong> Find the <strong>Discount percentage</strong>.',
+ answer:'16.67',tol:0.1},
+
+{id:19,sec:2,
+ word:'There is a Profit of 25%, a Discount of 20%, and the Marked Price is ₹9000.',
+ text:'<strong>(a)</strong> Find the <strong>Selling Price</strong> in ₹.',
+ answer:'7200',tol:0},
+
+{id:20,sec:2,
+ word:'There is a Profit of 25%, a Discount of 20%, and the Marked Price is ₹9000.',
+ text:'<strong>(b)</strong> Find the <strong>Cost Price</strong> in ₹.',
+ answer:'5760',tol:0},
+
+{id:21,sec:2,
+ word:'There is a Profit of 9.09%, the Marked Price is ₹6314, and the Mark-up percentage is 40%.',
+ text:'<strong>(a)</strong> Find the <strong>Mark-up in Rupees</strong>.',
+ answer:'1804',tol:0},
+
+{id:22,sec:2,
+ word:'There is a Profit of 9.09%, the Marked Price is ₹6314, and the Mark-up percentage is 40%.',
+ text:'<strong>(b)</strong> Find the <strong>Selling Price</strong> in ₹.',
+ answer:'4920',tol:0},
+
+{id:23,sec:2,
+ word:'There is a Profit of 9.09%, the Marked Price is ₹6314, and the Mark-up percentage is 40%.',
+ text:'<strong>(c)</strong> Find the <strong>Cost Price</strong> in ₹.',
+ answer:'4510',tol:0},
+
+{id:24,sec:2,
+ word:'The Discount percentage is 15%, the Mark-up in Rupees is ₹500, and the Mark-up percentage is 7.69%.',
+ text:'<strong>(a)</strong> Find the <strong>Marked Price</strong> in ₹.',
+ answer:'7000',tol:0},
+
+{id:25,sec:2,
+ word:'The Discount percentage is 15%, the Mark-up in Rupees is ₹500, and the Mark-up percentage is 7.69%.',
+ text:'<strong>(b)</strong> Find the <strong>Profit or Loss in Rupees</strong>. (It is a Loss — enter as a positive number.)',
+ answer:'550',tol:0},
+
+{id:26,sec:2,
+ word:'The Discount percentage is 15%, the Mark-up in Rupees is ₹500, and the Mark-up percentage is 7.69%.',
+ text:'<strong>(c)</strong> Find the <strong>Cost Price</strong> in ₹.',
+ answer:'6500',tol:0},
+
+{id:27,sec:2,
+ word:'The Cost Price is ₹10000, the Selling Price is ₹8100, and the Discount percentage is 28%.',
+ text:'<strong>(a)</strong> Find the <strong>Mark-up in Rupees</strong>.',
+ answer:'1250',tol:0},
+
+{id:28,sec:2,
+ word:'The Cost Price is ₹10000, the Selling Price is ₹8100, and the Discount percentage is 28%.',
+ text:'<strong>(b)</strong> Find the <strong>Mark-up percentage</strong>.',
+ answer:'12.5',tol:0},
+
+{id:29,sec:2,
+ word:'The Discount percentage is 44.44%, the Marked Price is ₹8505, and the Mark-up in Rupees is ₹1701.',
+ text:'<strong>(a)</strong> Find the <strong>Selling Price</strong> in ₹.',
+ answer:'4725',tol:0},
+
+{id:30,sec:2,
+ word:'The Discount percentage is 44.44%, the Marked Price is ₹8505, and the Mark-up in Rupees is ₹1701.',
+ text:'<strong>(b)</strong> Find the <strong>Profit or Loss in Rupees</strong>. (It is a Loss — enter as a positive number.)',
+ answer:'2079',tol:0},
+
+{id:31,sec:2,
+ text:'A trader desires a profit of 30% after a discount of 35%. By what percent should he <strong>markup</strong> his goods?',
+ answer:'100',tol:0},
+
+{id:32,sec:2,
+ text:'A shopkeeper wants to earn a profit of 50% on a smartwatch. But due to festive sale, he gives a discount of 25% on the marked price. Find the required <strong>mark-up percentage</strong>.',
+ answer:'100',tol:0},
+
+{id:33,sec:2,
+ text:'A furniture dealer buys a study table for ₹7200. He marks it 25% above the cost price and then gives a discount of 20% to the customer. Find his final <strong>profit or loss percentage</strong>. (Enter 0 if there is no profit or loss.)',
+ answer:'0',tol:0},
+
+{id:34,sec:2,
+ text:'A fruit seller sells oranges at ₹8 each and suffers a loss of 20%. How many oranges should he sell for ₹160 to earn a <strong>profit of 60%</strong>?',
+ answer:'10',tol:0},
+
+{id:35,sec:2,
+ text:'A mobile shop owner wants to earn a profit of 35% after giving a discount of 10% on the marked price. Find the <strong>mark-up percentage</strong> he should keep.',
+ answer:'50',tol:0},
+
+// ── SECTION 3: Special Concepts ──
+{id:36,sec:3,
+ word:'Concept 1: Same SP while Selling Two Items',
+ text:'<strong>Q36.</strong> A man sells two laptops at ₹8400 each. He gains 20% on one and loses 20% on the other. Find the overall <strong>Loss %</strong>.',
+ answer:'4',tol:0},
+
+{id:37,sec:3,
+ word:'Concept 1: Same SP while Selling Two Items',
+ text:'<strong>Q37.</strong> A dealer sells two refrigerators at ₹19800 each. One at 10% profit and the other at 10% loss. Find the overall <strong>Loss %</strong>.',
+ answer:'1',tol:0},
+
+{id:38,sec:3,
+ word:'Concept 1: Same SP while Selling Two Items',
+ text:'<strong>Q38.</strong> Kabir sold two phones at ₹18200 each. He earned 30% profit on one and incurred 30% loss on the other. Find the overall <strong>Loss %</strong>.',
+ answer:'9',tol:0},
+
+{id:39,sec:3,
+ word:'Concept 2: Cheating — Selling Less Quantity',
+ text:'<strong>Q39.</strong> A dishonest grocer uses a 950 g weight instead of 1 kg. Find his <strong>Profit %</strong>.',
+ answer:'5.26',tol:0.1},
+
+{id:40,sec:3,
+ word:'Concept 2: Cheating — Selling Less Quantity',
+ text:'<strong>Q40.</strong> A cloth merchant uses an 80 cm scale as 1 meter while selling cloth. Find his <strong>Profit %</strong>.',
+ answer:'25',tol:0},
+
+{id:41,sec:3,
+ word:'Concept 2: Cheating — Selling Less Quantity',
+ text:'<strong>Q41.</strong> A fruit seller buys rice using correct weights but sells it using a 900 g weight as 1 kg. Find his <strong>Profit %</strong>.',
+ answer:'11.11',tol:0.1},
+
+{id:42,sec:3,
+ word:'Concept 2: Cheating — Selling Less Quantity',
+ text:'<strong>Q42.</strong> A shopkeeper uses a 750 g weight instead of 1 kg while selling sugar. Find his <strong>Profit %</strong>.',
+ answer:'33.33',tol:0.1},
+
+{id:43,sec:3,
+ word:'Concept 2: Cheating — Selling Less Quantity',
+ text:'<strong>Q43.</strong> A milk seller purchases milk correctly but sells using a 25% shorter measuring jar. Find his <strong>Profit %</strong>.',
+ answer:'33.33',tol:0.1},
+
+{id:44,sec:3,
+ word:'Concept 3: Cheating — Selling Adulterated Items',
+ text:'<strong>Q44.</strong> A milkman mixes 3 liters of water in every 12 liters of pure milk and sells it at cost price. Find his <strong>Profit %</strong>.',
+ answer:'25',tol:0},
+
+{id:45,sec:3,
+ word:'Concept 3: Cheating — Selling Adulterated Items',
+ text:'<strong>Q45.</strong> A petrol pump owner mixes 8 liters of kerosene in every 32 liters of petrol and sells the mixture at cost price. Find his <strong>Profit %</strong>.',
+ answer:'25',tol:0},
+
+{id:46,sec:3,
+ word:'Concept 3: Cheating — Selling Adulterated Items',
+ text:'<strong>Q46.</strong> A milkman mixes 6 liters of water in every 24 liters of milk. If he claims a profit of 20%, find his <strong>actual Profit %</strong>.',
+ answer:'50',tol:0},
+
+{id:47,sec:3,
+ word:'Concept 4: Freebies',
+ text:'<strong>Q47.</strong> A store offers "Buy 5 Get 1 Free". Find the effective <strong>Discount %</strong>.',
+ answer:'16.67',tol:0.1},
+
+{id:48,sec:3,
+ word:'Concept 4: Freebies',
+ text:'<strong>Q48.</strong> An online platform offers 2 months free on payment of 8 months subscription charges. Find the effective <strong>Discount %</strong>.',
+ answer:'20',tol:0},
+
+{id:49,sec:3,
+ word:'Concept 4: Freebies',
+ text:'<strong>Q49.</strong> A shopkeeper offers "Buy 4 Get 1 Free" and still wants an overall profit of 25%. Find the required <strong>Mark-up %</strong>.',
+ answer:'56.25',tol:0},
+];
+
+// ─────────────────────────────────────────────
+// STATE & INIT
+// ─────────────────────────────────────────────
+const TOTAL=49, SECS=90*60;
+let cur=1, timeLeft=SECS, timerInt=null, submitted=false;
+let student={name:'',center:'',batch:''};
+const state={};
+for(let i=1;i<=TOTAL;i++) state[i]={status:'nv',response:null};
+state[1].status='na';
+
+const secLabel=['','Percentage Word Problems','SP · CP · MP · Profit · Loss','Special Concepts'];
+
+function startTest(){
+  const name=document.getElementById('inp-name').value.trim();
+  const center=document.getElementById('inp-center').value;
+  const batch=document.getElementById('inp-batch').value.trim();
+  const err=document.getElementById('entry-err');
+  if(!name){err.textContent='Please enter your name.';return;}
+  if(!center){err.textContent='Please select your center.';return;}
+  if(!batch){err.textContent='Please enter your batch.';return;}
+  student={name,center,batch};
+  document.getElementById('entry-ov').style.display='none';
+  document.getElementById('h-student').textContent=name;
+  renderQ(1);updatePalette();startTimer();
+}
+
+function startTimer(){
+  timerInt=setInterval(()=>{
+    timeLeft--;
+    const m=Math.floor(timeLeft/60),s=timeLeft%60;
+    const el=document.getElementById('timer');
+    el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    el.className='timer'+(timeLeft<=300?' warn':'')+(timeLeft<=60?' danger':'');
+    if(timeLeft<=0){clearInterval(timerInt);document.getElementById('timeup-ov').classList.add('show');}
+  },1000);
+}
+
+function timeTaken(){
+  const e=SECS-timeLeft,m=Math.floor(e/60),s=e%60;
+  return`${m}m ${s}s`;
+}
+
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+function renderQ(qid){
+  const q=Q[qid-1], st=state[qid];
+  const bClass=['','b-s1','b-s2','b-s3'];
+  const boxClass=['','s1','s2','s3'];
+  const boxIcon=['','📋 Given','📋 Given','💡 Concept'];
+
+  let html=`<div class="q-meta">
+    <span class="q-num">Q.${q.id}</span>
+    <span class="badge ${bClass[q.sec]}">${secLabel[q.sec]}</span>
+    <span class="badge b-tita">TITA</span>
+  </div>`;
+
+  if(q.word){
+    html+=`<div class="given-box ${boxClass[q.sec]}">
+      <div class="box-label">${boxIcon[q.sec]}</div>
+      <div class="box-content">${q.word}</div>
+    </div>`;
+  }
+
+  html+=`<div class="instr">📌 Type In The Answer — enter a number only. No negative marking.</div>`;
+  html+=`<div class="q-text">${q.text}</div>`;
+  html+=`<div class="tita-wrap">
+    <div class="tita-label">Your Answer</div>
+    <input class="tita-input" id="tita" type="text" inputmode="decimal" maxlength="12" placeholder="—" value="${st.response!==null?st.response:''}">
+    <div class="tita-hint">Enter digits and/or a decimal point only</div>
+  </div>`;
+
+  document.getElementById('q-inner').innerHTML=html;
+  document.getElementById('cur-q').textContent=qid;
+  ['tab1','tab2','tab3'].forEach((id,i)=>
+    document.getElementById(id).classList.toggle('active',q.sec===i+1));
+
+  const inp=document.getElementById('tita');
+  inp.addEventListener('input',()=>{
+    let v=inp.value.replace(/[^0-9.]/g,'');
+    const pts=v.split('.');if(pts.length>2)v=pts[0]+'.'+pts.slice(1).join('');
+    inp.value=v;
+    state[cur].response=v||null;
+    state[cur].status=v?(state[cur].status==='mrv'?'amrv':'ans'):'na';
+    updatePalette();
+  });
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')saveAndNext();});
+  inp.focus();
+  updatePalette();updateJumps();
+}
+
+function updateJumps(){
+  const q=Q[cur-1];
+  document.querySelectorAll('.sj-btn').forEach((b,i)=>
+    b.classList.toggle('active',q.sec===i+1));
+}
+
+function updatePalette(){
+  document.getElementById('palette').innerHTML=Q.map(q=>{
+    const s=state[q.id];
+    let cls='pb p-'+s.status;if(q.id===cur)cls+=' cur';
+    return`<button class="${cls}" onclick="goToQ(${q.id})">${q.id}</button>`;
+  }).join('');
+}
+
+function goToQ(qid){
+  if(state[qid].status==='nv')state[qid].status='na';
+  cur=qid;renderQ(qid);
+}
+function navigate(d){const n=cur+d;if(n<1||n>TOTAL)return;goToQ(n);}
+function saveAndNext(){if(cur<TOTAL)goToQ(cur+1);}
+function markForReview(){
+  const s=state[cur];
+  s.status=s.status==='ans'?'amrv':(s.status==='amrv'?'ans':(s.status==='mrv'?'na':'mrv'));
+  renderQ(cur);updatePalette();
+}
+function clearResp(){state[cur].response=null;state[cur].status='na';renderQ(cur);updatePalette();}
+
+// ─────────────────────────────────────────────
+// SUBMIT & SCORE
+// ─────────────────────────────────────────────
+function showConfirm(){
+  let ans=0,na=0,mrv=0;
+  for(let i=1;i<=TOTAL;i++){
+    const s=state[i].status;
+    if(s==='ans'||s==='amrv')ans++;else if(s==='mrv')mrv++;else na++;
+  }
+  document.getElementById('c-stats').innerHTML=
+    `<div class="cs-row"><span>✅ Answered</span><span><strong>${ans}</strong></span></div>
+     <div class="cs-row"><span>❌ Not Answered</span><span><strong>${na}</strong></span></div>
+     <div class="cs-row"><span>⚑ Marked (unanswered)</span><span><strong>${mrv}</strong></span></div>`;
+  document.getElementById('confirm-ov').classList.add('show');
+}
+function closeConfirm(){document.getElementById('confirm-ov').classList.remove('show');}
+
+function doSubmit(){
+  if(submitted)return;submitted=true;clearInterval(timerInt);
+  ['confirm-ov','timeup-ov'].forEach(id=>document.getElementById(id).classList.remove('show'));
+  document.getElementById('submitting-ov').classList.add('show');
+  setTimeout(()=>{document.getElementById('submitting-ov').classList.remove('show');showResults();},2800);
+}
+
+function evalQ(q){
+  const resp=state[q.id].response;
+  if(resp===null||resp===undefined||resp==='')return{result:'skip',marks:0};
+  const r=parseFloat(resp),a=parseFloat(q.answer),tol=q.tol||0;
+  if(!isNaN(r)&&!isNaN(a)&&Math.abs(r-a)<=tol+0.005)return{result:'correct',marks:3};
+  return{result:'wrong',marks:0};
+}
+
+function showResults(){
+  let total=0,correct=0,wrong=0,skip=0;
+  const secD=[{q:0,c:0,w:0,s:0,m:0},{q:0,c:0,w:0,s:0,m:0},{q:0,c:0,w:0,s:0,m:0}];
+  Q.forEach(q=>{
+    const{result,marks}=evalQ(q);total+=marks;
+    const sd=secD[q.sec-1];sd.q++;sd.m+=marks;
+    if(result==='correct'){correct++;sd.c++;}
+    else if(result==='wrong'){wrong++;sd.w++;}
+    else{skip++;sd.s++;}
+  });
+  const acc=correct+wrong>0?Math.round(correct/(correct+wrong)*100):0;
+
+  document.getElementById('s-strip').innerHTML=
+    `<span>👤 <strong>${student.name||'—'}</strong></span>
+     <span>Center: <strong>${student.center||'—'}</strong></span>
+     <span>Batch: <strong>${student.batch||'—'}</strong></span>
+     <span>Time Taken: <strong>${timeTaken()}</strong></span>`;
+
+  document.getElementById('score-cards').innerHTML=
+    `<div class="sc"><div class="sc-label">Total Score</div><div class="sc-val blue">${total}</div><div style="font-size:10px;color:#888;margin-top:4px">out of 147</div></div>
+     <div class="sc"><div class="sc-label">Accuracy</div><div class="sc-val gld">${acc}%</div><div style="font-size:10px;color:#888;margin-top:4px">${correct} of ${correct+wrong}</div></div>
+     <div class="sc"><div class="sc-label">Correct</div><div class="sc-val grn">+${correct*3}</div><div style="font-size:10px;color:#888;margin-top:4px">${correct} questions</div></div>
+     <div class="sc"><div class="sc-label">Skipped</div><div class="sc-val" style="color:var(--gray)">${skip}</div><div style="font-size:10px;color:#888;margin-top:4px">no penalty</div></div>`;
+
+  const sNames=['§1 Percentage Word Problems','§2 SP · CP · MP · Profit · Loss','§3 Special Concepts'];
+  const sMax=[21,84,42];
+  document.getElementById('atbl').innerHTML=
+    `<tr><th>Section</th><th>Qs</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Score</th><th>Max</th></tr>`+
+    secD.map((sd,i)=>`<tr>
+      <td><strong>${sNames[i]}</strong></td>
+      <td>${sd.q}</td><td>${sd.c+sd.w}</td><td>${sd.c}</td><td>${sd.w}</td><td>${sd.s}</td>
+      <td style="font-weight:700;color:${sd.m>0?'#16a34a':'#555'}">${sd.m}</td>
+      <td style="color:#888">${sMax[i]}</td>
+    </tr>`).join('')+
+    `<tr style="background:#e0eaff">
+      <td><strong>TOTAL</strong></td><td><strong>49</strong></td>
+      <td><strong>${correct+wrong}</strong></td><td><strong>${correct}</strong></td>
+      <td><strong>${wrong}</strong></td><td><strong>${skip}</strong></td>
+      <td style="font-weight:700;font-size:15px;color:var(--navy)">${total}</td>
+      <td style="font-weight:700;color:#888">147</td>
+    </tr>`;
+
+  submitToGF({total,correct,wrong,skip});
+  renderReview('all');
+  document.getElementById('results-ov').classList.add('show');
+}
+
+function renderReview(filter){
+  const bClass=['','b-s1','b-s2','b-s3'];
+  let html='';
+  Q.forEach(q=>{
+    const{result}=evalQ(q);
+    if(filter!=='all'&&result!==filter)return;
+    const resp=state[q.id].response;
+    const stHtml=result==='correct'
+      ?`<span class="rq-st ok">✓ Correct (+3)</span>`
+      :result==='wrong'
+        ?`<span class="rq-st no">✗ Wrong (0)</span>`
+        :`<span class="rq-st sk">— Skipped</span>`;
+    html+=`<div class="rq">
+      <div class="rq-hdr">
+        <span class="rq-num">Q.${q.id}</span>
+        <span class="badge ${bClass[q.sec]}" style="font-size:10px">${secLabel[q.sec]}</span>
+        ${stHtml}
+      </div>
+      <div style="font-size:12.5px;color:var(--text);margin-bottom:3px">${q.text.replace(/<[^>]+>/g,'').substring(0,100)}…</div>
+      <div class="rq-ans">
+        <span class="rq-your">Your: <strong>${resp||'—'}</strong></span>
+        &nbsp;&nbsp;
+        <span class="rq-correct">✓ Correct: <strong>${q.answer}</strong></span>
+      </div>
+    </div>`;
+  });
+  if(!html)html='<div style="padding:20px;text-align:center;color:#999">No questions here.</div>';
+  document.getElementById('review-list').innerHTML=html;
+}
+function filterReview(f,btn){
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');renderReview(f);
+}
+function closeResults(){document.getElementById('results-ov').classList.remove('show');}
+
+// ─────────────────────────────────────────────
+// GOOGLE FORMS SUBMIT
+// ─────────────────────────────────────────────
+function buildRespStr(){
+  return Q.map(q=>{
+    const resp=state[q.id].response;
+    if(!resp)return`Q${q.id}:–`;
+    const{result}=evalQ(q);
+    return`Q${q.id}:${resp}(${result==='correct'?'✓':'✗'})`;
+  }).join(' ');
+}
+async function submitToGF(scores){
+  const p=new URLSearchParams();
+  const f=GF.f;
+  p.append(f.name,student.name);p.append(f.center,student.center);
+  p.append(f.batch,student.batch);p.append(f.total,scores.total);
+  p.append(f.correct,scores.correct);p.append(f.wrong,scores.wrong);
+  p.append(f.skip,scores.skip);p.append(f.time,timeTaken());
+  p.append(f.resp,buildRespStr());
+  try{
+    await fetch(GF.url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()});
+    showToast('✓ Responses submitted to IMS Gujarat');
+  }catch(e){showToast('⚠ Could not reach Google Forms',true);}
+}
+
+// ─────────────────────────────────────────────
+// PDF DOWNLOAD
+// ─────────────────────────────────────────────
+function downloadPDF(){
+  const sNames=['§1 Percentage Word Problems','§2 SP · CP · MP · Profit · Loss','§3 Special Concepts'];
+  let curSec=0,body='';
+  Q.forEach(q=>{
+    if(q.sec!==curSec){
+      curSec=q.sec;
+      body+=`<div class="sec-hdr">${sNames[q.sec-1]}</div>`;
+    }
+    body+=`<div class="qb">`;
+    if(q.word)body+=`<div class="ctx">${q.word}</div>`;
+    body+=`<div class="qrow"><span class="qn">Q.${q.id}</span><span class="qt">${q.text.replace(/<[^>]+>/g,'')}</span></div>`;
+    body+=`<div class="ans">✓ Answer: ${q.answer}</div>`;
+    body+=`</div>`;
+  });
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Math Reboot 2026 – Answer Key</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;font-size:11px;color:#000;padding:20px 24px}
+    h1{font-size:15px;font-weight:700;color:#0f2556;margin-bottom:3px}
+    .meta{font-size:10px;color:#555;margin-bottom:4px}
+    .note{font-size:10px;color:#888;font-style:italic;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:14px}
+    .sec-hdr{font-size:13px;font-weight:700;color:#0f2556;margin:14px 0 6px;border-bottom:2px solid #0f2556;padding-bottom:2px}
+    .qb{margin-bottom:6px;padding:7px 10px;border:1px solid #ddd;border-radius:4px;page-break-inside:avoid}
+    .qrow{display:flex;gap:6px;align-items:flex-start}
+    .qn{font-weight:700;color:#2851a3;min-width:30px;flex-shrink:0}
+    .qt{font-size:11px;color:#111;line-height:1.5}
+    .ans{font-size:11.5px;font-weight:700;color:#1a7a3c;margin-top:4px}
+    .ctx{font-size:10.5px;color:#2851a3;font-weight:600;margin-bottom:4px;background:#f0f4ff;padding:3px 7px;border-radius:3px}
+  </style></head><body>
+  <h1>QA – Math Reboot 2026 · Practice Test Answer Key</h1>
+  <div class="meta">Student: <strong>${student.name||'—'}</strong> &nbsp;|&nbsp; Center: <strong>${student.center||'—'}</strong> &nbsp;|&nbsp; Batch: <strong>${student.batch||'—'}</strong> &nbsp;|&nbsp; Date: ${new Date().toLocaleDateString('en-IN')}</div>
+  <div class="note">All 49 questions · TITA · No negative marking · Sections 1–3</div>
+  ${body}</body></html>`;
+  const win=window.open('','_blank');
+  win.document.write(html);win.document.close();
+  win.onload=()=>{win.focus();win.print();};
+}
+
+// ─────────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────────
+function showToast(msg,isErr=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast'+(isErr?' err':'')+' show';
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+renderQ(1);updatePalette();
+</script>
+</body>
+</html>
